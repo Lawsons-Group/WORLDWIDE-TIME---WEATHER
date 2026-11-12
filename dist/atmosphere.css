@@ -1,0 +1,36 @@
+/* Independent time and weather layers keep a rainy night distinct from a rainy day. */
+.sky{--top:#3079a4;--middle:#7ab4c3;--bottom:#d7cbae;--cloud:#d8e6e7;--cloud-opacity:.25;--sun-opacity:.9;background:linear-gradient(180deg,var(--top),var(--middle) 60%,var(--bottom));pointer-events:none}
+body{isolation:isolate}.sky:after{z-index:7;background:linear-gradient(0deg,#0b1c2bf0 0,#10243580 50%,#0b1c2b25 100%)}
+body[data-phase] .sky{background:linear-gradient(180deg,var(--top),var(--middle) 60%,var(--bottom))}
+body[data-phase=dawn] .sky{--top:#354e7c;--middle:#b17a91;--bottom:#e6ad7d}
+body[data-phase=dusk] .sky{--top:#2c3c65;--middle:#a76b82;--bottom:#d69970}
+body[data-phase=night] .sky{--top:#060e24;--middle:#14233f;--bottom:#36445e;--cloud:#6c7d98}
+.sky .orb{z-index:1;left:var(--sun-x,65%);top:var(--sun-y,15%);right:auto;opacity:var(--sun-opacity);background:#fff2c9;box-shadow:0 0 90px 30px #ffdf8c50;transition:opacity 2s,top 50s linear,left 50s linear}
+body[data-phase=night] .sky .orb{left:73%;top:14%;width:85px;height:85px;background:#e7edff;box-shadow:0 0 70px 15px #b7cbff30}
+body[data-phase=dawn] .sky .orb,body[data-phase=dusk] .sky .orb{background:#ffd4a1;box-shadow:0 0 100px 40px #f5ae6a55}
+.sky .cloud{z-index:2;background:var(--cloud);opacity:var(--cloud-opacity);width:75vw;max-width:1100px;height:19vh;filter:blur(27px);animation:weather-drift 45s ease-in-out infinite alternate;transition:opacity 2s,background 2s}
+.sky .cloud.one{top:7%;left:-15%;transform:rotate(-8deg)}.sky .cloud.two{top:22%;right:-25%;animation-delay:-20s;height:23vh}
+body[data-weather=clouds] .sky{--cloud-opacity:.56;--sun-opacity:.45}
+body[data-weather=rain] .sky,body[data-weather=storm] .sky{--top:#354e63;--middle:#6c8290;--bottom:#97a7ad;--cloud:#8195a3;--cloud-opacity:.85;--sun-opacity:.08}
+body[data-weather=snow] .sky{--top:#526d85;--middle:#9aafbe;--bottom:#cbd6da;--cloud-opacity:.68;--sun-opacity:.2}
+body[data-weather=fog] .sky{--top:#607b8b;--middle:#99adb4;--bottom:#bec8c6;--cloud-opacity:.65;--sun-opacity:.15}
+body[data-phase=night][data-weather=rain] .sky,body[data-phase=night][data-weather=storm] .sky,body[data-phase=night][data-weather=snow] .sky,body[data-phase=night][data-weather=fog] .sky{--top:#0b1425;--middle:#233346;--bottom:#435563;--cloud:#526276;--sun-opacity:.07}
+body[data-phase=dawn]:is([data-weather=rain],[data-weather=snow],[data-weather=fog]) .sky,body[data-phase=dusk]:is([data-weather=rain],[data-weather=snow],[data-weather=fog]) .sky{--top:#3e4b63;--middle:#7b7988;--bottom:#b19b96}
+.stars{position:absolute;inset:0;opacity:0;z-index:0;background-image:radial-gradient(1px 1px at 7% 13%,#fff 99%,transparent),radial-gradient(2px 2px at 23% 28%,#fff 99%,transparent),radial-gradient(1px 1px at 44% 8%,#fff 99%,transparent),radial-gradient(1px 1px at 56% 31%,#fff 99%,transparent),radial-gradient(1px 1px at 86% 19%,#fff 99%,transparent);background-size:440px 330px;transition:opacity 2s}
+body[data-phase=night][data-weather=clear] .stars{opacity:.8}body[data-phase=night][data-weather=clouds] .stars{opacity:.25}
+.horizon-glow{position:absolute;inset:40% -20% 0;background:radial-gradient(ellipse at 60% 70%,#ffd6ab55,transparent 60%);opacity:0;transition:opacity 2s}
+body[data-phase=dawn] .horizon-glow,body[data-phase=dusk] .horizon-glow{opacity:.8}
+.sky .mountain.back{z-index:3}.sky .mountain.front{z-index:4}
+.precipitation{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity 2s;overflow:hidden}
+.precipitation i{position:absolute;left:var(--x);top:-10%;width:1px;height:65px;background:linear-gradient(transparent,#d1eafa);opacity:var(--alpha);animation:rain-fall var(--speed) var(--delay) linear infinite;animation-play-state:paused;will-change:transform}
+body[data-weather=rain] .precipitation,body[data-weather=storm] .precipitation,body[data-weather=snow] .precipitation{opacity:1}
+body:is([data-weather=rain],[data-weather=storm],[data-weather=snow]) .precipitation i{animation-play-state:running}
+body[data-weather=snow] .precipitation i{height:var(--size);width:var(--size);border-radius:50%;background:#eff7ff;animation-name:snow-fall;animation-duration:var(--snow-speed);filter:blur(.3px)}
+.mist{position:absolute;inset:20% -30% -10%;z-index:5;background:radial-gradient(ellipse at 30% 40%,#bfd4dc77,transparent 65%);filter:blur(35px);opacity:0;animation:weather-drift 35s ease-in-out infinite alternate}
+body[data-weather=fog] .mist{opacity:.8}
+.sound-control{margin:7px 0 0;display:flex;align-items:center;gap:12px;min-height:25px}.sound-control button{border:1px solid #ffffff30;border-radius:30px;padding:7px 12px;font-size:11px;background:#102b3860}.sound-control button[aria-pressed=true]{border-color:#b9edcb88;color:var(--accent)}.sound-control small{font-size:10px;color:var(--muted)}
+@keyframes rain-fall{from{transform:translate3d(0,-70px,0) rotate(14deg)}to{transform:translate3d(-22vw,120vh,0) rotate(14deg)}}
+@keyframes snow-fall{from{transform:translate3d(0,-20px,0)}to{transform:translate3d(12vw,120vh,0)}}
+@keyframes weather-drift{to{translate:12vw 2vh}}
+@media(max-width:500px){.sound-control{align-items:flex-start;flex-direction:column;gap:5px}.precipitation i:nth-child(n+46){display:none}}
+@media(prefers-reduced-motion:reduce){.precipitation{display:none}.sky .cloud,.mist{animation:none}.sky .orb{transition:none}}
