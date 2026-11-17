@@ -1,19 +1,20 @@
 /* Independent time and weather layers keep a rainy night distinct from a rainy day. */
-.sky{--top:#edc567;--middle:#fae5ae;--bottom:#f8f1d9;--cloud:#fffdf5;--cloud-opacity:.12;--sun-opacity:1;background:linear-gradient(180deg,var(--top),var(--middle) 60%,var(--bottom));pointer-events:none}
+.sky{--top:#4d9ed4;--middle:#95c9e9;--bottom:#dfedf4;--cloud:#ffffff;--cloud-opacity:.12;--sun-opacity:1;background:linear-gradient(180deg,var(--top),var(--middle) 60%,var(--bottom));pointer-events:none}
 body{isolation:isolate}.sky:after{z-index:7;background:linear-gradient(0deg,#00000025,transparent 65%)}
 body[data-phase] .sky{background:linear-gradient(180deg,var(--top),var(--middle) 60%,var(--bottom))}
-body[data-phase=dawn] .sky{--top:#b78065;--middle:#e7ad83;--bottom:#f9ddb3}
-body[data-phase=dusk] .sky{--top:#51414d;--middle:#a96560;--bottom:#e5a373}
+body[data-phase=dawn] .sky{--top:#5885ab;--middle:#9fbbce;--bottom:#f0c5a5}
+body[data-phase=dusk] .sky{--top:#3d5e82;--middle:#9eafbf;--bottom:#e4b29d}
 body[data-phase=night] .sky{--top:#0b0b10;--middle:#1b1a22;--bottom:#39343d;--cloud:#6d6870}
-.sky .orb{z-index:1;left:var(--sun-x,65%);top:var(--sun-y,15%);right:auto;opacity:var(--sun-opacity);background:#fff2c9;box-shadow:0 0 90px 30px #ffdf8c50;transition:opacity 2s,top 50s linear,left 50s linear}
+.sky .orb{z-index:1;left:var(--sun-x,65%);top:var(--sun-y,15%);right:auto;opacity:var(--sun-opacity);background:#fff9de;box-shadow:0 0 90px 30px #fff3b92e;transition:opacity 2s,top 50s linear,left 50s linear}
 body[data-phase=night] .sky .orb{left:73%;top:14%;width:85px;height:85px;background:#f4f0db;box-shadow:0 0 70px 15px #eee4c530}
 body[data-phase=dawn] .sky .orb,body[data-phase=dusk] .sky .orb{background:#ffd4a1;box-shadow:0 0 100px 40px #f5ae6a55}
 .sky .cloud{z-index:2;background:var(--cloud);opacity:var(--cloud-opacity);width:75vw;max-width:1100px;height:19vh;filter:blur(27px);animation:weather-drift 45s ease-in-out infinite alternate;transition:opacity 2s,background 2s}
 .sky .cloud.one{top:7%;left:-15%;transform:rotate(-8deg)}.sky .cloud.two{top:22%;right:-25%;animation-delay:-20s;height:23vh}
 body[data-weather=clouds] .sky{--cloud:#4b4c50;--cloud-opacity:.8;--sun-opacity:.55}
-body[data-weather=rain] .sky,body[data-weather=storm] .sky{--top:#525553;--middle:#92948e;--bottom:#c2c3b9;--cloud:#d3d5cf;--cloud-opacity:.85;--sun-opacity:0}
-body[data-weather=snow] .sky{--top:#a4a5a1;--middle:#d2d3cd;--bottom:#f3f1e7;--cloud-opacity:.68;--sun-opacity:.2}
-body[data-weather=fog] .sky{--top:#93958d;--middle:#bec0b6;--bottom:#dddcd0;--cloud-opacity:.65;--sun-opacity:.15}
+body[data-weather=clouds][data-phase=day] .sky{--top:#929ca7;--middle:#c1cad2;--bottom:#e6ecf0}
+body[data-weather=rain] .sky,body[data-weather=storm] .sky{--top:#58616b;--middle:#909aa4;--bottom:#c2ccd3;--cloud:#737c86;--cloud-opacity:.85;--sun-opacity:0}
+body[data-weather=snow] .sky{--top:#a4afb9;--middle:#d2dae0;--bottom:#f0f3f5;--cloud-opacity:.68;--sun-opacity:.2}
+body[data-weather=fog] .sky{--top:#a4b0b9;--middle:#c4cdd4;--bottom:#e3e8ec;--cloud-opacity:.65;--sun-opacity:.15}
 body[data-phase=night]:is([data-weather=rain],[data-weather=storm],[data-weather=snow],[data-weather=fog]) .sky{--top:#101112;--middle:#292b2a;--bottom:#474941;--cloud:#656861;--sun-opacity:0}
 body[data-phase=dawn]:is([data-weather=rain],[data-weather=snow],[data-weather=fog]) .sky,body[data-phase=dusk]:is([data-weather=rain],[data-weather=snow],[data-weather=fog]) .sky{--top:#595552;--middle:#8a8177;--bottom:#b1a591}
 .stars{position:absolute;inset:0;opacity:0;z-index:0;background-image:radial-gradient(1px 1px at 7% 13%,#fff 99%,transparent),radial-gradient(2px 2px at 23% 28%,#fff 99%,transparent),radial-gradient(1px 1px at 44% 8%,#fff 99%,transparent),radial-gradient(1px 1px at 56% 31%,#fff 99%,transparent),radial-gradient(1px 1px at 86% 19%,#fff 99%,transparent);background-size:440px 330px;transition:opacity 2s}
