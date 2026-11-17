@@ -11,7 +11,7 @@ body[data-phase=dawn] .sky .orb,body[data-phase=dusk] .sky .orb{background:#ffd4
 .sky .cloud{z-index:2;background:var(--cloud);opacity:var(--cloud-opacity);width:75vw;max-width:1100px;height:19vh;filter:blur(27px);animation:weather-drift 45s ease-in-out infinite alternate;transition:opacity 2s,background 2s}
 .sky .cloud.one{top:7%;left:-15%;transform:rotate(-8deg)}.sky .cloud.two{top:22%;right:-25%;animation-delay:-20s;height:23vh}
 body[data-weather=clouds] .sky{--cloud-opacity:.56;--sun-opacity:.45}
-body[data-phase=day][data-weather=clouds] .sky{--top:#aba89b;--middle:#d2cfc2;--bottom:#ece7d6}
+body[data-phase=day][data-weather=clouds] .sky{--top:#93999f;--middle:#c5c9cd;--bottom:#edf0f2;--cloud:#ffffff}
 body[data-weather=rain] .sky,body[data-weather=storm] .sky{--top:#525553;--middle:#92948e;--bottom:#c2c3b9;--cloud:#d3d5cf;--cloud-opacity:.85;--sun-opacity:0}
 body[data-weather=snow] .sky{--top:#a4a5a1;--middle:#d2d3cd;--bottom:#f3f1e7;--cloud-opacity:.68;--sun-opacity:.2}
 body[data-weather=fog] .sky{--top:#93958d;--middle:#bec0b6;--bottom:#dddcd0;--cloud-opacity:.65;--sun-opacity:.15}
@@ -45,6 +45,19 @@ body:is([data-phase=day],[data-phase=dawn]) .sound-control button{background:#ff
 body:is([data-phase=day],[data-phase=dawn]) .units{border-color:#414c3550}body:is([data-phase=day],[data-phase=dawn]) .units .active{background:#344528;color:#fffbee}
 body:is([data-phase=day],[data-phase=dawn]) :is(.daily,.day,.metrics article){border-color:#414c3540}
 body:is([data-phase=day],[data-phase=dawn]) .hero{background:#fffdf2a6;border-radius:18px;padding:28px 22px;margin-top:14px;margin-bottom:24px;backdrop-filter:blur(2px)}
+/* Overcast scenes use silver, white and charcoal instead of olive tones. */
+body[data-weather=clouds] .sky .mountain.back{background:#80868c}
+body[data-weather=clouds] .sky .mountain.front{background:#565e66}
+body[data-weather=clouds][data-phase=night] .sky .mountain.back{background:#2e3035}
+body[data-weather=clouds][data-phase=night] .sky .mountain.front{background:#1d2025}
+body[data-weather=clouds][data-phase=day] .sky .orb{background:#fff;box-shadow:0 0 90px 30px #ffffff30}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]){--ink:#24282d;--muted:#4a5159;--accent:#353e49}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) :is(.metrics,.hour,.toolbar form,.outline,.sound-control button){background:#ffffffc9;border-color:#555d6638}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) .hero{background:#ffffffe0}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) .results{background:#f8f9fa}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) .units .active{background:#353e49;color:#fff}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) :is(.units,.daily,.day,.metrics article){border-color:#555d6640}
+body[data-weather=clouds]:is([data-phase=day],[data-phase=dawn]) .hour:first-child{background:#edf0f4e6;border-color:#59667580}
 .birds{position:absolute;inset:8% -20% 40%;z-index:3;display:none;pointer-events:none}
 body[data-phase=day][data-weather=clear] .birds,body[data-phase=dawn][data-weather=clear] .birds{display:block}
 .birds i{position:absolute;left:0;top:25%;width:24px;height:12px;animation:bird-flight 28s linear infinite}
