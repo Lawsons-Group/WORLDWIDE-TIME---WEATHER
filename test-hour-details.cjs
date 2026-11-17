@@ -1,0 +1,16 @@
+const { readFileSync } = require('node:fs');
+const vm = require('node:vm');
+const assert = require('node:assert/strict');
+const context = { window: {}, document: { getElementById() { return { addEventListener() {} }; } } };
+vm.runInNewContext(readFileSync('dist/hour-details.js','utf8'), context);
+const details = context.window.HourDetails.detailsFor;
+const forecast = { temperature_2m:[0], apparent_temperature:[-2], precipitation_probability:[0], precipitation:[0], relative_humidity_2m:[85], wind_speed_10m:[10], wind_direction_10m:[270], cloud_cover:[100] };
+const celsius = Object.fromEntries(details(forecast,0,'c'));
+assert.equal(celsius.Temperature,'0°C');
+assert.equal(celsius['Feels like'],'-2°C');
+assert.equal(celsius['Rain chance'],'0%');
+assert.equal(celsius.Precipitation,'0.0 mm');
+assert.equal(celsius.Wind,'10 km/h W');
+assert.equal(Object.fromEntries(details(forecast,0,'f')).Temperature,'32°F');
+assert.equal(Object.fromEntries(details({},0,'c')).Humidity,'Unavailable');
+console.log('Passed: hourly detail units, zero values, wind direction and missing-data handling.');

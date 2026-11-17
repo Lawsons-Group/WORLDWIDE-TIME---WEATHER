@@ -17,6 +17,7 @@ No build or API key is required. From this folder run `python -m http.server 808
 - Optional nature ambience, generated locally with Web Audio: birdsong on sunny days, gentle crickets at night, and rainfall whenever it rains, including rainy nights. Cloudy, dry days remain quiet. Click **Sound off** to enable it or **Sound on** to mute it; browsers require a user gesture before audio. Sound fades between conditions and mutes while the tab is hidden. No audio downloads or microphone access.
 - Current conditions, feels-like temperature, wind, humidity, rain chance, sunrise and sunset.
 - Worldwide city search, next 24 hours and seven-day forecast.
+- Select any hourly icon/card to open its detailed forecast: temperature, feels like, rain probability, precipitation, humidity, wind and cloud cover. Supports keyboard navigation, Escape to dismiss, and Celsius/Fahrenheit preferences.
 - Network errors preserve previous weather and offer retry. No fabricated weather data.
 
 Weather and geocoding are provided by [Open-Meteo](https://open-meteo.com/). Its free endpoint is for non-commercial use; review its terms before commercial deployment. Weather represents the latest available model data, not a continuous sensor feed. Time follows the device clock and uses IANA timezones. Google Fonts are optional; system fonts are used if unavailable.
