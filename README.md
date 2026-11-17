@@ -13,7 +13,8 @@ No build or API key is required. From this folder run `python -m http.server 808
 - Celsius/Fahrenheit toggle, remembered location and preferences in browser local storage.
 - Animated day/night and weather-dependent sky, responsive layout, reduced-motion support.
 - Sunrise/sunset-aware dawn, daylight, dusk and night scenes for the selected city; drifting clouds, animated rain, snowfall, fog and starry clear nights.
-- Optional gentle rain ambience, generated locally with Web Audio. Click **Sound off** to enable it; browsers require a user gesture before audio. Sound fades with rain conditions, stays quiet in dry weather, and mutes while the tab is hidden. No audio downloads or microphone access.
+- Warm sunny landscapes with flying birds, neutral grey rain clouds and charcoal nighttime skies. The interface uses neutral glass instead of a blue overlay.
+- Optional nature ambience, generated locally with Web Audio: birdsong on sunny days, gentle crickets at night, and rainfall whenever it rains, including rainy nights. Cloudy, dry days remain quiet. Click **Sound off** to enable it or **Sound on** to mute it; browsers require a user gesture before audio. Sound fades between conditions and mutes while the tab is hidden. No audio downloads or microphone access.
 - Current conditions, feels-like temperature, wind, humidity, rain chance, sunrise and sunset.
 - Worldwide city search, next 24 hours and seven-day forecast.
 - Network errors preserve previous weather and offer retry. No fabricated weather data.
