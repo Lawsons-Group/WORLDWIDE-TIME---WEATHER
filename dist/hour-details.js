@@ -28,11 +28,11 @@
   function fill(index) {
     const stamp = forecast.time[index];
     const label = new Intl.DateTimeFormat('en-GB', { timeZone: timezone, weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(stamp * 1000));
-    document.getElementById('hourDetailTitle').textContent = label;
-    document.getElementById('hourDetailPlace').textContent = city + ' · ' + timezone.replaceAll('_', ' ');
+    panel.querySelector('#hourDetailTitle').textContent = label;
+    panel.querySelector('#hourDetailPlace').textContent = city + ' · ' + timezone.replaceAll('_', ' ');
     const card = hourly.querySelector(`[data-hour-index="${index}"]`);
-    document.getElementById('hourDetailCondition').textContent = card?.querySelector('b')?.getAttribute('aria-label') || 'Hourly forecast';
-    document.getElementById('hourDetailIcon').textContent = card?.querySelector('b')?.textContent || '';
+    panel.querySelector('#hourDetailCondition').textContent = card?.querySelector('b')?.getAttribute('aria-label') || 'Hourly forecast';
+    panel.querySelector('#hourDetailIcon').textContent = card?.querySelector('b')?.textContent || '';
     list.replaceChildren();
     for (const [label, value] of detailsFor(forecast, index, unit)) {
       const item = document.createElement('div');
