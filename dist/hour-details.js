@@ -1,8 +1,8 @@
 (function () {
-  const dialog = document.getElementById('hourDetails');
+  const panel = document.getElementById('hourDetails');
   const list = document.getElementById('hourDetailGrid');
   const hourly = document.getElementById('hourly');
-  let forecast, timezone, unit, city, selectedTime = null;
+  let forecast, timezone, unit, city, selectedTime = null, collapseTimer;
 
   function detailsFor(hourlyData, index, temperatureUnit) {
     const value = (key, suffix = '', decimals = 0) => {
@@ -46,23 +46,45 @@
     if (!card || !forecast) return;
     const index = Number(card.dataset.hourIndex);
     if (!Number.isInteger(index) || !Number.isFinite(forecast.time[index])) return;
-    selectedTime = forecast.time[index]; fill(index); dialog.showModal();
+    if (selectedTime === forecast.time[index]) { close(); return; }
+    selectedTime = forecast.time[index]; fill(index); expand(card);
   });
-  dialog.addEventListener('click', event => {
-    const bounds = dialog.getBoundingClientRect();
-    if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
-  });
-  dialog.addEventListener('close', () => {
-    const index = forecast?.time.indexOf(selectedTime);
-    hourly.querySelector(`[data-hour-index="${index}"]`)?.focus({ preventScroll: true });
+  function markSelected(card) {
+    hourly.querySelectorAll('button[data-hour-index]').forEach(button => button.setAttribute('aria-expanded', String(button === card)));
+  }
+  function expand(card, animate = true) {
+    clearTimeout(collapseTimer);
+    panel.hidden = false;
+    panel.inert = false;
+    if (animate) panel.classList.remove('is-open');
+    card.after(panel);
+    markSelected(card);
+    // Establish the collapsed width before expanding the flex item.
+    if (animate) void panel.offsetWidth;
+    panel.classList.add('is-open');
+    collapseTimer = setTimeout(() => panel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'nearest', inline: 'nearest' }), 280);
+  }
+  function close(restoreFocus = false) {
+    clearTimeout(collapseTimer);
+    const card = hourly.querySelector(`[data-hour-index="${forecast?.time.indexOf(selectedTime)}"]`);
     selectedTime = null;
+    panel.inert = true;
+    panel.classList.remove('is-open');
+    markSelected(null);
+    if (restoreFocus) card?.focus({ preventScroll: true });
+    collapseTimer = setTimeout(() => { if (selectedTime === null) panel.hidden = true; }, 280);
+  }
+  document.getElementById('closeHourDetails').addEventListener('click', () => close(true));
+  hourly.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && selectedTime !== null) { event.preventDefault(); close(true); }
   });
   function setForecast(next, zone, temperatureUnit, name) {
-    if (city !== name && dialog.open) dialog.close();
+    if (city !== name && selectedTime !== null) close();
     forecast = next; timezone = zone; unit = temperatureUnit; city = name;
-    if (dialog.open) {
+    if (selectedTime !== null) {
       const index = forecast.time.indexOf(selectedTime);
-      if (index < 0) dialog.close(); else fill(index);
+      const card = hourly.querySelector(`[data-hour-index="${index}"]`);
+      if (!card) close(); else { fill(index); expand(card, false); }
     }
   }
   window.HourDetails = { setForecast, detailsFor };
