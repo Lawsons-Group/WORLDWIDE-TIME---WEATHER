@@ -20,10 +20,10 @@ body[data-phase=dawn]:is([data-weather=rain],[data-weather=snow],[data-weather=f
 body[data-phase=night][data-weather=clear] .stars{opacity:.8}body[data-phase=night][data-weather=clouds] .stars{opacity:.25}
 .horizon-glow{position:absolute;inset:40% -20% 0;background:radial-gradient(ellipse at 60% 70%,#ffd6ab55,transparent 60%);opacity:0;transition:opacity 2s}
 body[data-phase=dawn] .horizon-glow,body[data-phase=dusk] .horizon-glow{opacity:.8}
-.sky .mountain.back{z-index:3;background:#78765b}.sky .mountain.front{z-index:4;background:#4d6044}
-body[data-weather=rain] .mountain.back,body[data-weather=storm] .mountain.back{background:#757970}
-body[data-weather=rain] .mountain.front,body[data-weather=storm] .mountain.front{background:#4c574d}
-body[data-phase=night] .mountain.back{background:#252625}body[data-phase=night] .mountain.front{background:#181c18}
+.sky .mountain.back{z-index:3;background:#8dc765}.sky .mountain.front{z-index:4;background:#53a849}
+body[data-weather=rain] .mountain.back,body[data-weather=storm] .mountain.back{background:#69986c}
+body[data-weather=rain] .mountain.front,body[data-weather=storm] .mountain.front{background:#43865b}
+body[data-phase=night] .mountain.back{background:#315b40}body[data-phase=night] .mountain.front{background:#1c412c}
 .precipitation{position:absolute;inset:0;z-index:6;opacity:0;transition:opacity 2s;overflow:hidden}
 .precipitation i{position:absolute;left:var(--x);top:-10%;width:1px;height:65px;background:linear-gradient(transparent,#f7f8f2);opacity:var(--alpha);animation:rain-fall var(--speed) var(--delay) linear infinite;animation-play-state:paused;will-change:transform}
 body[data-weather=rain] .precipitation,body[data-weather=storm] .precipitation,body[data-weather=snow] .precipitation{opacity:1}
@@ -36,14 +36,30 @@ body[data-weather=fog] .mist{opacity:.8}
 body{background:#23241e;--accent:#e4d8a1;--ink:#faf8ed;--muted:#d1cec1}
 .metrics,.hour,.toolbar form,.outline{background:#22231d50;border-color:#ffffff40}
 .results{background:#292c26}.hour:first-child{background:#e4d8a126;border-color:#e4d8a180}
-body:is([data-phase=day],[data-phase=dawn]){color-scheme:light;--ink:#23271e;--muted:#424b36;--accent:#344528}
+body:is([data-phase=day],[data-phase=dawn]){color-scheme:light;--ink:#20252b;--muted:#46505b;--accent:#303b49}
 body:is([data-phase=day],[data-phase=dawn]) .metrics,body:is([data-phase=day],[data-phase=dawn]) .hour,body:is([data-phase=day],[data-phase=dawn]) .toolbar form,body:is([data-phase=day],[data-phase=dawn]) .outline{background:#fffdf2b8;border-color:#414c3538;backdrop-filter:blur(12px)}
 body:is([data-phase=day],[data-phase=dawn]) :is(.eyebrow,.metrics article>span,.hour b,.day b,.hour small,.day small,footer,input,input::placeholder){color:var(--ink)}
 body:is([data-phase=day],[data-phase=dawn]) .results{background:#fffbee;color:var(--ink)}
 body:is([data-phase=day],[data-phase=dawn]) .sound-control button{background:#fffdf2b8;border-color:#414c3550}
-body:is([data-phase=day],[data-phase=dawn]) .units{border-color:#414c3550}body:is([data-phase=day],[data-phase=dawn]) .units .active{background:#344528;color:#fffbee}
+body:is([data-phase=day],[data-phase=dawn]) .units{border-color:#414c3550}body:is([data-phase=day],[data-phase=dawn]) .units .active{background:#303b49;color:#fffbee}
 body:is([data-phase=day],[data-phase=dawn]) :is(.daily,.day,.metrics article){border-color:#414c3540}
 body:is([data-phase=day],[data-phase=dawn]) .hero{background:#fffdf2a6;border-radius:18px;padding:28px 22px;margin-top:14px;margin-bottom:24px;backdrop-filter:blur(2px)}
+/* Forecast text sits on solid panels, never directly on the mountains. */
+.week-section{background:#25282d;color:#fafafa;--ink:#fafafa;--muted:#d2d6dc;--accent:#f1e2b3;border:1px solid #ffffff30;border-radius:18px;padding:22px}
+.week-section .section-title{margin-bottom:14px}
+.week-section .daily{border-top-color:#ffffff30}
+.week-section .day{border-bottom:0}
+.week-section .day span,.week-section .day em,.week-section .day small{color:var(--muted)}
+.week-section .day b,.week-section .day strong{color:var(--ink)}
+.forecast .section-title{background:#25282def;color:#fafafa;border-radius:12px;padding:13px 16px}
+.forecast .section-title>span{color:#d2d6dc}
+footer{background:#25282def;color:#f1f3f5;border-radius:12px;padding:13px 16px}
+body:is([data-phase=day],[data-phase=dawn]) .week-section{background:#fffdf8;--ink:#20252b;--muted:#46505b;--accent:#303b49;color:#20252b;border-color:#303b4926}
+body:is([data-phase=day],[data-phase=dawn]) .week-section .daily{border-top-color:#303b4926}
+body:is([data-phase=day],[data-phase=dawn]) .forecast .section-title{background:#fffdf8;color:#20252b}
+body:is([data-phase=day],[data-phase=dawn]) .forecast .section-title>span{color:#46505b}
+body:is([data-phase=day],[data-phase=dawn]) footer{background:#fffdf8;color:#20252b}
+@media(max-width:500px){.week-section{padding:18px 14px}}
 /* Cloudy weather keeps the sunny scene and adds dark grey clouds. */
 body[data-weather=clouds] .sky .cloud{filter:blur(14px)}
 .birds{position:absolute;inset:8% -20% 40%;z-index:3;display:none;pointer-events:none}
