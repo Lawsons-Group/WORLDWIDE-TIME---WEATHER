@@ -24,4 +24,7 @@ for (const [code, hour, expected] of [[0,'12:00','birds'],[0,'03:00','night'],[6
   assert.equal(ambience(scene(forecast(code), 'Europe/London', epoch(`2026-11-12T${hour}Z`))), expected, `Ambience for code ${code} at ${hour}`);
 }
 assert.equal(ambience(null), 'quiet');
+for (const [code, expected] of [[0,'none'],[1,'few'],[2,'broken'],[3,'overcast'],[61,'overcast']]) {
+  assert.equal(scene(forecast(code), 'Europe/London', epoch('2026-11-12T12:00Z')).cloudiness, expected, `Cloud coverage for code ${code}`);
+}
 console.log('Passed: weather codes, daylight boundaries, polar fallback, intensity, birdsong, nighttime ambience and rain priority.');

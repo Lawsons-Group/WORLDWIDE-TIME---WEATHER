@@ -18,7 +18,8 @@
       else if (Math.abs(now - set) < 2700) phase = 'dusk';
       progress = Math.max(0, Math.min(1, (now - rise) / (set - rise)));
     }
-    return { weather, phase, night, progress, wet: weather === 'rain' || weather === 'storm', heavy: [65, 67, 82, 95, 96, 99].includes(code) };
+    const cloudiness = code === 0 ? 'none' : code === 1 ? 'few' : code === 2 ? 'broken' : 'overcast';
+    return { weather, cloudiness, phase, night, progress, wet: weather === 'rain' || weather === 'storm', heavy: [65, 67, 82, 95, 96, 99].includes(code) };
   }
   function ambienceFor(scene) {
     if (!scene) return 'quiet';
@@ -37,6 +38,7 @@
   }
   sky.appendChild(particles);
   sky.insertAdjacentHTML('afterbegin', '<div class="stars"></div><div class="horizon-glow"></div>');
+  sky.insertAdjacentHTML('beforeend', '<div class="cloud three"></div><div class="cloud peek"></div>');
   sky.insertAdjacentHTML('beforeend', '<div class="mist"></div><div class="birds"><i></i><i></i><i></i></div>');
 
   let state = null, context, source, gain, rainGain, natureGain, enabled = false, busy = false;
@@ -126,6 +128,7 @@
     if (!forecast) return;
     const next = sceneFor(forecast, timezone);
     document.body.dataset.weather = next.weather;
+    document.body.dataset.cloudiness = next.cloudiness;
     document.body.dataset.phase = next.phase;
     sky.style.setProperty('--sun-x', `${15 + next.progress * 65}%`);
     sky.style.setProperty('--sun-y', `${35 - Math.sin(next.progress * Math.PI) * 25}%`);
